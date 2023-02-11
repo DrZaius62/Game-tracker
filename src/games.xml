@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<Games>
+	<Game name="Super Mario" status="playing" price="50">Platformer</Game>
+	<Game name="Minecraft" status="bought" price="20">Adventure</Game>
+</Games>

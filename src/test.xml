@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<UserGames>
+	<Wishlist>
+		<Game name="Sly Cooper" start="0" beat="0" release="0" review="0" platform="PC" />
+		<Game name="God of War" start="0" beat="0" release="0" review="0" platform="PC" />
+	</Wishlist>
+	<Playing>
+		<Game name="zelda" price="200" />
+		<Game name="The Last of Us" start="0" beat="0" release="0" review="0" platform="PC" />
+	</Playing>
+</UserGames>
