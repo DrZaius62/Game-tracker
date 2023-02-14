@@ -1,9 +1,12 @@
+#include <curses.h>
 #include <iostream>
+#include <ncurses.h>
 #include <unistd.h> 
 
 #include "Game.hpp"
 #include "xml_utils.hpp"
 #include "interface.hpp"
+
 pugi::xml_node  root;
 int main()
 {
@@ -13,20 +16,18 @@ int main()
     // Create empty XML document within memory
     pugi::xml_document doc = openXml("test.xml");
     root = doc.document_element();
-    
-    menu();
-    int option;
-    std::cin >> option;
 
-    switch (option) {
-        case 1:
-            showList("Wishlist");
-            break;
-        default:
-            
-            break;
+    initscr();
+    noecho();
+    cbreak();
+    Menu *m = new Menu(2, 10, 20);
+
+
+    while(m->getInput() != 'x')
+    {
+        m->display();
     }
-
+    m->~Menu();
     /*
     addGame(root, game, "Wishlist");
     moveGame(root, game, "Playing");

@@ -25,7 +25,7 @@ int main()
     int width = xMax/2;
     int height = yMax/2;
     WINDOW *win = newwin(height, width, 10, 20);
-
+    WINDOW *win2 = newwin(height, width, 20, 20);
     refresh();
 
     int choice;
@@ -35,6 +35,9 @@ int main()
     std::string list[] = {"test", "ne"};
     int page = 0;
     while(1){
+        box(win, 0, 0);
+        box(win2, 0, 0);
+        /*
         printBox(win, height, width);
         for (int i = 3; i < 11; i++){
             if (i == highlight)
@@ -50,6 +53,7 @@ int main()
             }
             wattroff(win, A_REVERSE);
         }
+        */
         choice = wgetch(win);
 
         switch (choice) {

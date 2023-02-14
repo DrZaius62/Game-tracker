@@ -1,10 +1,15 @@
+// interface.cpp - The cli for the program
+
 #include "interface.hpp"
+#include <curses.h>
+
+#include <iostream>
+#include <string>
 
 int center(int width, std::string str){
     return (width - str.length())/2;
 }
 
-// Prints centered title for a menu
 void printTitle(WINDOW *win, std::string title)
 {
     int height, width;
@@ -12,7 +17,6 @@ void printTitle(WINDOW *win, std::string title)
     mvwprintw(win, 1, center(width, title), title.c_str());
 }
 
-// Prints a list of items in a menu format, with highlights
 void printList(WINDOW *win, int highlight, std::vector<std::string> list){
     int height, width;
     getmaxyx(win, height, width);
@@ -24,21 +28,6 @@ void printList(WINDOW *win, int highlight, std::vector<std::string> list){
         wattroff(win, A_REVERSE);
     }
 }
-
-// Makes a vector of the items in the xml, so it can be passed to the relevant
-// functions to make a list and display it
-std::vector<std::string> makeList(std::string category)
-{
-    pugi::xml_node group = statusNode(root, category);
-    std::vector<std::string> list;
-
-    for(auto game : group)
-    {
-        list.push_back(game.attribute("name").value());
-    }
-    return list;
-}
-
 // Constructor
 Menu::Menu(int factor, int starty, int startx)
 {
@@ -92,31 +81,20 @@ void Menu::printCurrentScreen()
         std::string title;
         std::vector<std::string> list;
         std::string back = "----Back to main menu-----";
-        enum options {Wishlist, Backlog, Playing, Beat, Quit, Paused};
+        enum options {Wishlist=0, Backlog=1, Playing, Beat, Quit, Paused};
         switch (option) {
             case Wishlist:
                 title = "Wishlist";
+                list = {"god of war", "tlou"};
                 break;
             case Backlog:
                 title = "Backlog";
-                break;
-            case Playing:
-                title = "Playing";
-                break;
-            case Beat:
-                title = "Beat";
-                break;
-            case Quit:
-                title = "Quit";
-                break;
-            case Paused:
-                title = "Paused";
+                list = {"sly cooper"};
                 break;
             default:
                 break;
         }
 
-        list = makeList(title);
         list.push_back(back);
         setSizeList(list.size());
         WINDOW *win = getWin();
@@ -188,23 +166,14 @@ int Menu::getInput(){
             break;
 
         case 10:
-            // if choosing "back to menu" and in any category besides main
-            // sends you to main
             if (getHighlight() == (getSizeList() - 1) and getCategory() != -1)
-            {
                 setCategory(-1);
-                setHighlight(0);
-            }
-            // if choosing exit in main, quits program
-            else if (getHighlight() == (getSizeList() -1) and getCategory() == -1)
+            else if (getHighlight() == getSizeList() and getCategory() == -1)
                 ch = 'x';
-            // if in main, change to any other category
-            else if (getCategory() == -1)
-            {
+            else
                 setCategory(getHighlight());
-                setHighlight(0);
-            }
             break;
+
         default:
             break;
     }
@@ -217,4 +186,3 @@ void Menu::display(){
     printCurrentScreen();
     wrefresh(getWin());
 }
-

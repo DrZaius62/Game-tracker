@@ -1,25 +1,13 @@
-
-#ifndef INTERFACE_HPP
-#define INTERFACE_HPP
-
-#include <iostream>
-#include <string>
+// interface.cpp - The cli for the program
 #include <ncurses.h>
+#include <string>
 #include <vector>
 
-#include "pugixml.hpp"
-
-#include "xml_utils.hpp"
-
-extern pugi::xml_node root;
-
-/*
 int center(int width, std::string str);
 
 void printTitle(WINDOW *win, std::string title);
 
 void printList(WINDOW *win, int highlight, std::vector<std::string> list);
-*/
 
 class Menu{
     public:
@@ -55,7 +43,4 @@ class Menu{
 
 
 
-
-
-#endif /*INTERFACE_HPP*/
 

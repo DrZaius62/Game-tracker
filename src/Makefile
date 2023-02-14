@@ -9,7 +9,7 @@ CC = g++
 COMPILER_FLAGS = -w -g
 
 #LINKER_FLAGS specifies the libraries to link against
-LINKER_FLAGS = -l pugixml
+LINKER_FLAGS = -l pugixml -lncurses
 
 #OBJ_NAME name of the executable
 OBJ_NAME = a.out 
