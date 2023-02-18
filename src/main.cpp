@@ -5,7 +5,8 @@
 
 #include "Game.hpp"
 #include "xml_utils.hpp"
-#include "interface.hpp"
+#include "Menu.hpp"
+#include "infoGame.hpp"
 
 pugi::xml_node  root;
 int main()
@@ -20,8 +21,7 @@ int main()
     initscr();
     noecho();
     cbreak();
-    Menu *m = new Menu(2, 10, 20);
-
+    Menu *m = new Menu(2, 4, 10, 20);
 
     while(m->getInput() != 'x')
     {

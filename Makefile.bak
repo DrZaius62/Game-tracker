@@ -1,0 +1,34 @@
+#CXX specifies which compiler to use
+CC = g++
+
+# Directories
+SRCDIR = . ./src ./interface ./utils
+OBJDIR = ./obj
+
+
+SOURCES := $(wildcard $(addsuffix /*.cpp,$(SRCDIR)))
+OBJECTS := $(patsubst %.cpp,$(OBJDIR)/%.o,$(notdir $(SOURCES)))
+#OBJECTS := $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
+SOURCES := $(wildcard $(addsuffix /*.hpp,$(SRCDIR)))
+
+
+#COMPILER_FLAGS specifies the additional compilation options 
+CFLAGS = -g
+CFLAGS += $(foreach dir, $(SRCDIR), -I$(dir))
+
+#LIBS the libraries to link against
+LIBS += -l pugixml -lncurses
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(INCLUDES)
+		@$(CC) -c -o $@ $< $(CFLAGS)
+		@echo "Compilation done"
+
+project: $(OBJECTS)
+		@$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
+		@echo "Linking done"
+
+clean:
+	@rm $(OBJDIR)/*.o
+	@echo "Clean up done."
+
+
